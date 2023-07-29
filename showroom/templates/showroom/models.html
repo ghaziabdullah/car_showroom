@@ -1,0 +1,28 @@
+{% extends 'showroom/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% for model in models %}
+        <div class="col-md-4">
+            <div class="card">
+                <a href="{% url 'showroom:car_features' model.id %}">
+                    <img class="card-img-top img-fluid rounded" src="{{ model.picture.url }}" alt="Car Model" style="height: 250px;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ model.name }}</h5>
+                    <!-- Display the number of cars in stock -->
+                    {% if model.cars.exists %}
+                        <p class="text-success"> Cars in Stock : {{ model.cars.count }}</p>
+                    {% else %}
+                        <p class="text-danger">Out of Stock</p>
+                    {% endif %}
+                </div>
+            </div>
+            <p></p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

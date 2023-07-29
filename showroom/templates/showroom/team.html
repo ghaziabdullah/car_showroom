@@ -1,0 +1,50 @@
+{% extends 'showroom/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    /* Custom styles for the staff cards */
+    .card {
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    .card-img-top {
+        margin: 5px;
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+    }
+
+    .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        font-size: 16px;
+        color: #333;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row">
+        {% for staff_member in staff_members %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img class="card-img-top" src="{{ staff_member.profile_pic.url }}" alt="Staff Picture">
+                <div class="card-body">
+                    <h5 class="card-title">{{ staff_member.name }}</h5>
+                    <p class="card-text">Age: {{ staff_member.age }}</p>
+                    <p class="card-text">Gender: {{ staff_member.get_gender_display }}</p>
+                    <p class="card-text">Qualification: {{ staff_member.qualification }}</p>
+                    <p class="card-text">City: {{ staff_member.city }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

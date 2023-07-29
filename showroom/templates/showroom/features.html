@@ -1,0 +1,42 @@
+{% extends 'showroom/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card mb-3">
+                <img class="card-img-top img-fluid rounded" src="{{ model.picture.url }}" alt="Car Model" style="height: 300px;">
+                <div class="card-body">
+                    <h3 class="card-title">{{ model.name }}</h3>
+                    <h5 class="card-subtitle mb-3 text-muted">{{ model.brand.name }}</h5>
+                    {% if model.cars.all %}
+                        {% for car in model.cars.all %}
+                            <h6 class="card-subtitle mb-2 text-muted">Chassis No: {{ car.ChasisNo }}</h6>
+                            {% if car.engine %}
+                                <h6 class="card-subtitle mb-2 text-muted">Engine No: {{ car.engine.engineNo }}</h6>
+                            {% else %}
+                                <p>No Engine Data Available</p>
+                            {% endif %}
+                            <h6 class="card-subtitle mb-2 text-muted">Features:</h6>
+                            <ul class="list-group">
+                                <li class="list-group-item">Seating Capacity: {{ model.features.seating_Capacity }}</li>
+                                <li class="list-group-item">Horsepower: {{ model.features.horsepower }}</li>
+                                <li class="list-group-item">Top Speed: {{ model.features.topspeed }}</li>
+                                <li class="list-group-item">Torque: {{ model.features.torque }}</li>
+                                <li class="list-group-item">Transmission: {{ model.features.get_transmission_display }}</li>
+                                <li class="list-group-item">ABS Brakes: {% if model.features.abs_brakes %}Yes{% else %}No{% endif %}</li>
+                                <li class="list-group-item">Leather Seats: {% if model.features.leather_seats %}Yes{% else %}No{% endif %}</li>
+                                <li class="list-group-item">Heated Seats: {% if model.features.heated_seats %}Yes{% else %}No{% endif %}</li>
+                                <li class="list-group-item">Sunroof: {% if model.features.sunroof %}Yes{% else %}No{% endif %}</li>
+                                <li class="list-group-item">Turbocharger: {% if model.features.turboCharger %}Yes{% else %}No{% endif %}</li>
+                            </ul>
+                        {% endfor %}
+                    {% else %}
+                        <p>No Car Data Available</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
